@@ -3,22 +3,409 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nibblr</title>
+    <title>Nibblr — Loyalty for Local Restaurants</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23e85d26'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-weight='800' font-size='20' fill='white'>N</text></svg>" />
     <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --brand:    #e85d26;
+        --brand-dk: #c44d1c;
+        --bg:       #faf9f7;
+        --text:     #1a1612;
+        --muted:    #6b6560;
+        --border:   #e6e3de;
+        --radius:   14px;
+      }
+
+      html { scroll-behavior: smooth; }
+
       body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      /* ── Nav ─────────────────────────────────────────── */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        height: 60px;
+        background: rgba(250, 249, 247, 0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-logo {
+        font-size: 1.35rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .nav-cta {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--brand);
+        text-decoration: none;
+        border: 1.5px solid var(--brand);
+        padding: 0.35rem 1rem;
+        border-radius: 100px;
+        transition: background 0.15s, color 0.15s;
+      }
+      .nav-cta:hover { background: var(--brand); color: #fff; }
+
+      /* ── Hero ─────────────────────────────────────────── */
+      .hero {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 6rem 2rem 4rem;
+        text-align: center;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--brand);
+        background: #fde8de;
+        padding: 0.3rem 0.85rem;
+        border-radius: 100px;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 6vw, 3.8rem);
+        font-weight: 800;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.25rem;
+        color: var(--text);
+      }
+
+      .hero h1 span { color: var(--brand); }
+
+      .hero p {
+        font-size: 1.15rem;
+        color: var(--muted);
+        max-width: 560px;
+        margin: 0 auto 2.5rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+
+      .btn-primary {
+        display: inline-block;
+        background: var(--brand);
+        color: #fff;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.75rem 1.75rem;
+        border-radius: 100px;
+        text-decoration: none;
+        transition: background 0.15s, transform 0.1s;
+      }
+      .btn-primary:hover { background: var(--brand-dk); transform: translateY(-1px); }
+
+      /* ── How it works ─────────────────────────────────── */
+      .how {
+        background: #fff;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 5rem 2rem;
+      }
+
+      .section-label {
+        text-align: center;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--brand);
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 3rem;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .step {
+        text-align: center;
+        padding: 2rem 1.5rem;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+
+      .step-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .step h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .step p {
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+
+      /* ── For restaurants ────────────────────────────── */
+      .restaurants {
+        background: #fff;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 5rem 2rem;
+      }
+
+      .perks {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .perk {
+        padding: 2rem 1.5rem;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+
+      .perk-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .perk h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .perk p {
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+
+      /* ── Screenshots ─────────────────────────────────── */
+      .screenshots {
+        padding: 5rem 2rem;
+        text-align: center;
+      }
+
+      .screenshot-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2.5rem;
+        margin-top: 3rem;
+      }
+
+      .phone-frame {
+        width: 240px;
+        flex-shrink: 0;
+      }
+
+      .phone-frame img {
+        width: 100%;
+        border-radius: 36px;
+        border: 6px solid #1a1612;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+        display: block;
+      }
+
+      .phone-placeholder {
+        width: 240px;
+        aspect-ratio: 9 / 19.5;
+        border-radius: 36px;
+        border: 2px dashed var(--border);
+        background: #f0ede8;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100vh;
-        font-family: sans-serif;
-        background-color: #f8f8f8;
+        color: var(--muted);
+        font-size: 0.82rem;
+        text-align: center;
+        padding: 1rem;
+        line-height: 1.5;
+      }
+
+      /* ── Contact ─────────────────────────────────────── */
+      .contact {
+        background: var(--text);
+        color: #fff;
+        padding: 5rem 2rem;
+        text-align: center;
+      }
+
+      .contact .section-label { color: #f4a87a; }
+
+      .contact h2 {
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .contact p {
+        font-size: 1rem;
+        color: #b0a89e;
+        max-width: 480px;
+        margin: 0 auto 2rem;
+      }
+
+      .contact a.email-link {
+        display: inline-block;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+        background: var(--brand);
+        padding: 0.75rem 2rem;
+        border-radius: 100px;
+        text-decoration: none;
+        transition: background 0.15s, transform 0.1s;
+      }
+      .contact a.email-link:hover { background: var(--brand-dk); transform: translateY(-1px); }
+
+      /* ── Footer ──────────────────────────────────────── */
+      footer {
+        text-align: center;
+        padding: 1.5rem 2rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+      }
+
+      @media (max-width: 500px) {
+        .hero { padding: 4rem 1.25rem 3rem; }
+        .how, .screenshots, .contact { padding: 3.5rem 1.25rem; }
       }
     </style>
   </head>
   <body>
-    <div style="text-align: center;">
-      <h1 style="font-size: 2.5rem; margin-bottom: 0.5em; color: #2d3748; letter-spacing: 2px;">Nibblr</h1>
-      <h2 style="font-size: 1.5rem; color: #718096; font-weight: 400; margin: 0;">Coming soon...</h2>
-    </div>
+
+    <!-- Nav -->
+    <nav>
+      <a class="nav-logo" href="#">Nibblr</a>
+      <a class="nav-cta" href="#contact">Get in touch</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-badge">Coming soon to NYC</div>
+      <h1>One loyalty network for your <span>favorite local spots</span></h1>
+      <p>
+        Nibblr connects diners to the independent quick-service and fast-casual
+        restaurants they love. Earn points everywhere, redeem rewards anywhere
+        in the network.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get early access</a>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how">
+      <p class="section-label">How it works</p>
+      <h2 class="section-title">Simple for diners. Powerful for restaurants.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon">🍜</div>
+          <h3>Eat at local restaurants</h3>
+          <p>Grab lunch, pick up dinner — every dollar spent at a Nibblr partner earns you points.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">⭐</div>
+          <h3>Earn points everywhere</h3>
+          <p>Points stack across the whole network, not just one place. No more scattered punch cards.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">🎁</div>
+          <h3>Redeem at any partner</h3>
+          <p>Each restaurant offers its own rewards — free items, discounts, exclusive perks — all redeemable with your Nibblr balance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- For restaurants -->
+    <section class="restaurants">
+      <p class="section-label">For restaurants</p>
+      <h2 class="section-title">Partner with us to build something your neighborhood needs.</h2>
+      <div class="perks">
+        <div class="perk">
+          <div class="perk-icon">🎨</div>
+          <h3>Customizable rewards</h3>
+          <p>Design your own offers — free items, percentage discounts, exclusive specials. You set the rules, Nibblr handles the rest.</p>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">📊</div>
+          <h3>Real customer insights</h3>
+          <p>See visit frequency, average spend, and redemption trends across your regulars — data that most independent restaurants never had access to.</p>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">📣</div>
+          <h3>Grow with the network</h3>
+          <p>Early partner restaurants help shape the network — and are first in line to reach diners as Nibblr expands across the city.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="screenshots" id="app">
+      <p class="section-label">The app</p>
+      <h2 class="section-title">Everything in one place</h2>
+      <div class="screenshot-grid">
+        <div class="phone-frame">
+          <img src="screenshot1.png" alt="Nibblr app — earn points" onerror="this.parentElement.innerHTML='<div class=\'phone-placeholder\'>Screenshot coming soon</div>'" />
+        </div>
+        <div class="phone-frame">
+          <img src="screenshot2.png" alt="Nibblr app — redeem rewards" onerror="this.parentElement.innerHTML='<div class=\'phone-placeholder\'>Screenshot coming soon</div>'" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+      <p class="section-label">Contact</p>
+      <h2>Interested? Let's talk.</h2>
+      <p>Whether you're a restaurant owner interested in becoming an early partner or a diner who wants to be first in the network, we'd love to hear from you.</p>
+      <a class="email-link" href="mailto:zak@nibblr.us.com">Send us a message</a>
+    </section>
+
+    <footer>
+      &copy; 2026 Nibblr. All rights reserved.
+    </footer>
+
   </body>
 </html>
