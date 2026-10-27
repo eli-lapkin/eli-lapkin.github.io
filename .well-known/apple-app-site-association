@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["TEAM_ID.com.nibblr.ios"],
+        "components": [
+          {
+            "/": "/t/*",
+            "comment": "Tap links from the Nibblr tag at the register open the app"
+          }
+        ]
+      }
+    ]
+  }
+}

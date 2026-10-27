@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nibblr</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23e85d26'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-weight='800' font-size='20' fill='white'>N</text></svg>" />
+    <!--
+      GitHub Pages serves this page for any path that doesn't exist, so it doubles
+      as the landing page for tap links (/t/<tag code>) opened without the app.
+      With the app installed, iOS opens the app instead and this page never loads.
+    -->
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --brand:    #e85d26;
+        --brand-dk: #c44d1c;
+        --bg:       #faf9f7;
+        --text:     #1a1612;
+        --muted:    #6b6560;
+        --border:   #e6e3de;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        padding: 0 2rem;
+        height: 60px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-logo {
+        font-size: 1.35rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      main {
+        flex: 1;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 4rem 1.25rem;
+        text-align: center;
+      }
+
+      .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+      h1 {
+        font-size: clamp(1.8rem, 6vw, 2.4rem);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1.05rem;
+        color: var(--muted);
+        margin-bottom: 2rem;
+      }
+
+      .btn-primary {
+        display: inline-block;
+        background: var(--brand);
+        color: #fff;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.75rem 1.75rem;
+        border-radius: 100px;
+        text-decoration: none;
+      }
+      .btn-primary:hover { background: var(--brand-dk); }
+
+      .tap { display: none; }
+      body.is-tap .tap { display: block; }
+      body.is-tap .not-found { display: none; }
+    </style>
+  </head>
+  <body>
+    <script>
+      if (/^\/t\/[A-Za-z0-9_-]+\/?$/.test(location.pathname)) {
+        document.body.classList.add("is-tap");
+      }
+    </script>
+
+    <nav>
+      <a class="nav-logo" href="/">Nibblr</a>
+    </nav>
+
+    <main>
+      <div class="tap">
+        <div class="icon">🎟️</div>
+        <h1>Collect your punch with the Nibblr app</h1>
+        <p>
+          Get the app, sign up, and tap the tag at the register again.
+          One punch per visit, spendable at any Nibblr restaurant.
+        </p>
+        <!-- TODO: replace with the App Store link once the app is published -->
+        <a class="btn-primary" href="/#contact">Get the app</a>
+      </div>
+
+      <div class="not-found">
+        <div class="icon">🍽️</div>
+        <h1>Page not found</h1>
+        <p>This page doesn't exist, but there's plenty to eat back home.</p>
+        <a class="btn-primary" href="/">Go to Nibblr</a>
+      </div>
+    </main>
+  </body>
+</html>
