@@ -3,414 +3,263 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nibblr — Loyalty for Local Restaurants</title>
+    <title>Nibblr — One punch card for your favorite local spots</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23e85d26'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-weight='800' font-size='20' fill='white'>N</text></svg>" />
-    <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-      :root {
-        --brand:    #e85d26;
-        --brand-dk: #c44d1c;
-        --bg:       #faf9f7;
-        --text:     #1a1612;
-        --muted:    #6b6560;
-        --border:   #e6e3de;
-        --radius:   14px;
-      }
-
-      html { scroll-behavior: smooth; }
-
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.6;
-      }
-
-      /* ── Nav ─────────────────────────────────────────── */
-      nav {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 2rem;
-        height: 60px;
-        background: rgba(250, 249, 247, 0.92);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .nav-logo {
-        font-size: 1.35rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        color: var(--text);
-        text-decoration: none;
-      }
-
-      .nav-cta {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--brand);
-        text-decoration: none;
-        border: 1.5px solid var(--brand);
-        padding: 0.35rem 1rem;
-        border-radius: 100px;
-        transition: background 0.15s, color 0.15s;
-      }
-      .nav-cta:hover { background: var(--brand); color: #fff; }
-
-      /* ── Hero ─────────────────────────────────────────── */
-      .hero {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 6rem 2rem 4rem;
-        text-align: center;
-      }
-
-      .hero-badge {
-        display: inline-block;
-        font-size: 0.78rem;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--brand);
-        background: #fde8de;
-        padding: 0.3rem 0.85rem;
-        border-radius: 100px;
-        margin-bottom: 1.5rem;
-      }
-
-      .hero h1 {
-        font-size: clamp(2.4rem, 6vw, 3.8rem);
-        font-weight: 800;
-        line-height: 1.12;
-        letter-spacing: -0.02em;
-        margin-bottom: 1.25rem;
-        color: var(--text);
-      }
-
-      .hero h1 span { color: var(--brand); }
-
-      .hero p {
-        font-size: 1.15rem;
-        color: var(--muted);
-        max-width: 560px;
-        margin: 0 auto 2.5rem;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        justify-content: center;
-      }
-
-      .btn-primary {
-        display: inline-block;
-        background: var(--brand);
-        color: #fff;
-        font-size: 0.95rem;
-        font-weight: 600;
-        padding: 0.75rem 1.75rem;
-        border-radius: 100px;
-        text-decoration: none;
-        transition: background 0.15s, transform 0.1s;
-      }
-      .btn-primary:hover { background: var(--brand-dk); transform: translateY(-1px); }
-
-      /* ── How it works ─────────────────────────────────── */
-      .how {
-        background: #fff;
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-        padding: 5rem 2rem;
-      }
-
-      .section-label {
-        text-align: center;
-        font-size: 0.78rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--brand);
-        margin-bottom: 0.75rem;
-      }
-
-      .section-title {
-        text-align: center;
-        font-size: clamp(1.6rem, 4vw, 2.2rem);
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        margin-bottom: 3rem;
-      }
-
-      .steps {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 2rem;
-        max-width: 900px;
-        margin: 0 auto;
-      }
-
-      .step {
-        text-align: center;
-        padding: 2rem 1.5rem;
-        background: var(--bg);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-      }
-
-      .step-icon {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-
-      .step h3 {
-        font-size: 1.05rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-      }
-
-      .step p {
-        font-size: 0.92rem;
-        color: var(--muted);
-      }
-
-      /* ── For restaurants ────────────────────────────── */
-      .restaurants {
-        background: #fff;
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-        padding: 5rem 2rem;
-      }
-
-      .perks {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 2rem;
-        max-width: 900px;
-        margin: 0 auto;
-      }
-
-      .perk {
-        padding: 2rem 1.5rem;
-        background: var(--bg);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-      }
-
-      .perk-icon {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-
-      .perk h3 {
-        font-size: 1.05rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-      }
-
-      .perk p {
-        font-size: 0.92rem;
-        color: var(--muted);
-      }
-
-      /* ── Screenshots ─────────────────────────────────── */
-      .screenshots {
-        padding: 5rem 2rem;
-        text-align: center;
-      }
-
-      .screenshot-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2.5rem;
-        margin-top: 3rem;
-      }
-
-      .phone-frame {
-        width: 240px;
-        flex-shrink: 0;
-      }
-
-      .phone-frame img {
-        width: 100%;
-        border-radius: 36px;
-        border: 6px solid #1a1612;
-        box-shadow: 0 24px 60px rgba(0,0,0,0.18);
-        display: block;
-      }
-
-      .phone-placeholder {
-        width: 240px;
-        aspect-ratio: 9 / 19.5;
-        border-radius: 36px;
-        border: 2px dashed var(--border);
-        background: #f0ede8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--muted);
-        font-size: 0.82rem;
-        text-align: center;
-        padding: 1rem;
-        line-height: 1.5;
-      }
-
-      /* ── Contact ─────────────────────────────────────── */
-      .contact {
-        background: var(--text);
-        color: #fff;
-        padding: 5rem 2rem;
-        text-align: center;
-      }
-
-      .contact .section-label { color: #f4a87a; }
-
-      .contact h2 {
-        font-size: clamp(1.6rem, 4vw, 2.2rem);
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        margin-bottom: 1rem;
-      }
-
-      .contact p {
-        font-size: 1rem;
-        color: #b0a89e;
-        max-width: 480px;
-        margin: 0 auto 2rem;
-      }
-
-      .contact a.email-link {
-        display: inline-block;
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #fff;
-        background: var(--brand);
-        padding: 0.75rem 2rem;
-        border-radius: 100px;
-        text-decoration: none;
-        transition: background 0.15s, transform 0.1s;
-      }
-      .contact a.email-link:hover { background: var(--brand-dk); transform: translateY(-1px); }
-
-      /* ── Footer ──────────────────────────────────────── */
-      footer {
-        text-align: center;
-        padding: 1.5rem 2rem;
-        font-size: 0.8rem;
-        color: var(--muted);
-        border-top: 1px solid var(--border);
-      }
-
-      @media (max-width: 500px) {
-        .hero { padding: 4rem 1.25rem 3rem; }
-        .how, .screenshots, .contact { padding: 3.5rem 1.25rem; }
-      }
-    </style>
+    <meta name="description" content="One punch card for the East Village's independent restaurants. Get a punch every visit and spend your punches at any Nibblr spot. Join the waitlist." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://joinnibblr.com/" />
+    <meta property="og:title" content="Nibblr: one punch card for your favorite local spots" />
+    <meta property="og:description" content="Get a punch every visit and spend your punches at any Nibblr spot in the East Village. Join the waitlist." />
+    <meta property="og:image" content="https://joinnibblr.com/share.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="site.css" />
   </head>
   <body>
 
     <!-- Nav -->
     <nav>
       <a class="nav-logo" href="#">Nibblr</a>
-      <a class="nav-cta" href="#contact">Get in touch</a>
+      <a class="nav-cta" href="#waitlist">Join the waitlist</a>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-      <div class="hero-badge">Coming soon to NYC</div>
-      <h1>One loyalty network for your <span>favorite local spots</span></h1>
-      <p>
-        Nibblr connects diners to the independent quick-service and fast-casual
-        restaurants they love. Collect a punch every visit and spend your
-        punches at any spot in the network.
+      <div class="hero-copy">
+        <div class="hero-badge">Coming soon to the East Village</div>
+        <h1>One punch card for your <span>favorite local spots</span></h1>
+        <p>
+          Get a punch every time you eat at an independent spot nearby, and
+          spend your punches at any restaurant in the network.
+        </p>
+      </div>
+
+      <p class="owner-line">
+        Own a restaurant in the East Village? <a href="restaurants.html">Talk to us about joining the first group.</a>
       </p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn-primary">Get early access</a>
+
+      <!-- Waitlist: email only, then one optional question, then a share link.
+           Both steps post to Formspark in the background and share the sign-up's code. -->
+      <div class="waitlist" id="waitlist">
+        <form id="waitlist-form" action="https://submit-form.com/71qjJs8oy" method="POST">
+          <h2 id="waitlist-heading">Be the first to know</h2>
+          <div class="field">
+            <label for="wl-email">Email</label>
+            <input id="wl-email" type="email" name="email" autocomplete="email" required />
+          </div>
+          <!-- Spam honeypot: hidden from people, filled in by bots -->
+          <input type="checkbox" name="_honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+          <button class="btn-primary" type="submit">Join the waitlist</button>
+          <p class="form-error" role="alert" hidden></p>
+          <p class="fine-print">
+            Free. We'll only email you about Nibblr's launch in the East Village.
+            <a href="privacy.html">Privacy</a>
+          </p>
+        </form>
+
+        <form id="spots-form" action="https://submit-form.com/71qjJs8oy" method="POST" hidden>
+          <div class="check" aria-hidden="true">✓</div>
+          <h2>You're in.</h2>
+          <p class="step-lead">One quick question to help us pick the first spots:</p>
+          <div class="field">
+            <label for="wl-spots">Which East Village spots do you already go to?</label>
+            <input id="wl-spots" type="text" name="spots" placeholder="Name 2 or 3" maxlength="300" required />
+          </div>
+          <button class="btn-primary" type="submit">Send</button>
+          <p class="form-error" role="alert" hidden></p>
+          <p class="fine-print"><button class="link-button" type="button" id="spots-skip">Skip</button></p>
+        </form>
+
+        <div class="joined" id="waitlist-joined" hidden>
+          <div class="check" aria-hidden="true">✓</div>
+          <h2>You're all set</h2>
+          <p>We'll email you when the first spots are announced.</p>
+          <p>Invite friends who eat around here:</p>
+          <div class="share-link">
+            <input id="share-url" type="text" readonly aria-label="Your share link" />
+            <button class="btn-primary" type="button" id="share-button">Copy</button>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- How it works -->
     <section class="how">
       <p class="section-label">How it works</p>
-      <h2 class="section-title">Simple for diners. Powerful for restaurants.</h2>
+      <h2 class="section-title">One punch card, every spot</h2>
       <div class="steps">
-        <div class="step">
-          <div class="step-icon">🍜</div>
-          <h3>Eat at local spots</h3>
-          <p>Grab lunch, pick up a coffee, treat yourself to dessert at any Nibblr restaurant.</p>
-        </div>
         <div class="step">
           <div class="step-icon">📲</div>
           <h3>Pay, then tap</h3>
-          <p>After you pay, tap your phone on the Nibblr tag at the register. One punch per visit, and they add up across the whole network.</p>
+          <p>After you pay, tap your phone on the Nibblr tag at the register. That's a punch.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">🍜</div>
+          <h3>Punch anywhere</h3>
+          <p>Lunch at one spot, dinner at another. Your punches add up on one card across the whole neighborhood.</p>
         </div>
         <div class="step">
           <div class="step-icon">🎁</div>
-          <h3>Spend punches anywhere</h3>
-          <p>Trade 3, 5, 10 or 15 punches for free items and discounts at any Nibblr spot, not just the one where you earned them.</p>
+          <h3>Spend them anywhere</h3>
+          <p>Trade 3, 5, 10 or 15 punches for free items and money off at any Nibblr spot, not just where you earned them.</p>
         </div>
       </div>
     </section>
 
-    <!-- For restaurants -->
-    <section class="restaurants">
-      <p class="section-label">For restaurants</p>
-      <h2 class="section-title">Partner with us to build something your neighborhood needs.</h2>
-      <div class="perks">
-        <div class="perk">
-          <div class="perk-icon">🎨</div>
-          <h3>Your rewards, your menu</h3>
-          <p>Choose what you offer at each punch level, like a free coffee, a side, or money off a meal. Every spot prices rewards in the same punches.</p>
-        </div>
-        <div class="perk">
-          <div class="perk-icon">🏷️</div>
-          <h3>Nothing to install</h3>
-          <p>A small tag at the register is all it takes. No new hardware, no POS integration, nothing for your staff to learn beyond "pay, then tap."</p>
-        </div>
-        <div class="perk">
-          <div class="perk-icon">📊</div>
-          <h3>Know your regulars</h3>
-          <p>See punches, redemptions, and the new diners who found you through other Nibblr spots.</p>
-        </div>
-        <div class="perk">
-          <div class="perk-icon">📣</div>
-          <h3>Grow with the network</h3>
-          <p>Diners collecting punches nearby discover you, and early partners help shape the network as it expands across the city.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Screenshots -->
+    <!-- The app -->
     <section class="screenshots" id="app">
       <p class="section-label">The app</p>
       <h2 class="section-title">Everything in one place</h2>
       <div class="screenshot-grid">
-        <div class="phone-frame">
-          <img src="screenshot1.png" alt="Nibblr app — collect punches" onerror="this.parentElement.innerHTML='<div class=\'phone-placeholder\'>Screenshot coming soon</div>'" />
-        </div>
-        <div class="phone-frame">
-          <img src="screenshot2.png" alt="Nibblr app — redeem rewards" onerror="this.parentElement.innerHTML='<div class=\'phone-placeholder\'>Screenshot coming soon</div>'" />
-        </div>
+        <figure class="phone-frame">
+          <img src="app-discover.jpg" width="640" height="1387" loading="lazy" alt="Discover: nearby spots with walking times and their rewards" />
+          <figcaption>Find spots nearby and see what your punches get you</figcaption>
+        </figure>
+        <figure class="phone-frame">
+          <img src="app-card.jpg" width="640" height="1387" loading="lazy" alt="Wallet: a punch card filling up" />
+          <figcaption>One card fills up wherever you eat</figcaption>
+        </figure>
+        <figure class="phone-frame">
+          <img src="app-reward.jpg" width="640" height="1387" loading="lazy" alt="A reward ready to use at the counter" />
+          <figcaption>Use a reward with one tap at the counter</figcaption>
+        </figure>
       </div>
+      <p class="screenshot-note">Sample restaurants shown. The first Nibblr spots will be announced soon.</p>
     </section>
 
-    <!-- Contact -->
-    <section class="contact" id="contact">
-      <p class="section-label">Contact</p>
-      <h2>Interested? Let's talk.</h2>
-      <p>Whether you're a restaurant owner interested in becoming an early partner or a diner who wants to be first in the network, we'd love to hear from you.</p>
-      <a class="email-link" href="mailto:hello@joinnibblr.com">Send us a message</a>
+    <!-- Closing sign-up -->
+    <section class="closing">
+      <h2>Be one of the first in the East Village</h2>
+      <p>Free to join. We'll email you when the first spots are announced.</p>
+      <a class="btn-primary" href="#waitlist">Join the waitlist</a>
     </section>
 
     <footer>
-      &copy; 2026 Nibblr. All rights reserved.
+      <a href="restaurants.html">Own a restaurant? Partner with Nibblr</a>
+      · <a href="privacy.html">Privacy</a>
+      · &copy; 2026 Nibblr
     </footer>
 
+    <script>
+      (function () {
+        var form = document.getElementById('waitlist-form');
+        var spotsForm = document.getElementById('spots-form');
+        var joined = document.getElementById('waitlist-joined');
+        var card = document.getElementById('waitlist');
+        var shareUrl = document.getElementById('share-url');
+        var shareButton = document.getElementById('share-button');
+        var STORAGE_KEY = 'nibblr_waitlist_code';
+        var email = '';
+        var code = '';
+
+        // A short random code per sign-up. It labels the rows in the sheet and
+        // goes in the person's share link, so their friends' sign-ups point back to them.
+        function newCode() {
+          var alphabet = 'abcdefghjkmnpqrstuvwxyz23456789';
+          var bytes = new Uint8Array(6);
+          crypto.getRandomValues(bytes);
+          var result = '';
+          for (var i = 0; i < bytes.length; i++) result += alphabet[bytes[i] % alphabet.length];
+          return result;
+        }
+
+        function storedCode() {
+          try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+        }
+
+        // Who sent this visitor: a friend's code or a channel like flyer-1stave.
+        function refFromLink() {
+          var ref = new URLSearchParams(location.search).get('ref') || '';
+          ref = ref.toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 40);
+          return ref === storedCode() ? '' : ref;
+        }
+
+        function showOnly(element) {
+          [form, spotsForm, joined].forEach(function (el) { el.hidden = el !== element; });
+        }
+
+        function showJoined(withCode) {
+          shareUrl.value = 'https://joinnibblr.com/?ref=' + withCode;
+          if (navigator.share) shareButton.textContent = 'Share';
+          showOnly(joined);
+          card.classList.add('done');
+        }
+
+        // Posts to Formspark as JSON; the button shows progress and errors appear under it.
+        function send(target, data, busyLabel) {
+          var button = target.querySelector('button[type=submit]');
+          var error = target.querySelector('.form-error');
+          var label = button.textContent;
+          button.disabled = true;
+          button.textContent = busyLabel;
+          error.hidden = true;
+          return fetch(target.action, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(data)
+          })
+            .then(function (response) {
+              if (!response.ok) throw new Error('HTTP ' + response.status);
+            })
+            .catch(function (err) {
+              error.textContent = "That didn't go through. Please try again, or email hello@joinnibblr.com.";
+              error.hidden = false;
+              button.disabled = false;
+              button.textContent = label;
+              throw err;
+            });
+        }
+
+        shareButton.addEventListener('click', function () {
+          if (navigator.share) {
+            navigator.share({ title: 'Nibblr', text: 'Join me on the Nibblr waitlist', url: shareUrl.value })
+              .catch(function () {});
+            return;
+          }
+          shareUrl.select();
+          var copied = navigator.clipboard
+            ? navigator.clipboard.writeText(shareUrl.value)
+            : Promise.resolve(document.execCommand('copy'));
+          copied.then(function () { shareButton.textContent = 'Copied'; }).catch(function () {});
+        });
+
+        // A friend's share link (a 6-character code, unlike channel tags such as
+        // flyer-1stave) gets a welcome as the form's heading.
+        if (!storedCode() && /^[a-z2-9]{6}$/.test(refFromLink())) {
+          document.getElementById('waitlist-heading').textContent = "You're invited";
+        }
+
+        // Already signed up on this browser: show their link instead of the form.
+        if (storedCode()) showJoined(storedCode());
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          if (!form.reportValidity()) return;
+          email = form.elements.email.value.trim();
+          code = newCode();
+          var data = { email: email, ref: refFromLink(), code: code };
+          if (form.elements._honeypot.checked) data._honeypot = 'on';
+          send(form, data, 'Joining…').then(function () {
+            try { localStorage.setItem(STORAGE_KEY, code); } catch (e) {}
+            showOnly(spotsForm);
+            card.classList.add('done');
+            card.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          }, function () {});
+        });
+
+        spotsForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          if (!spotsForm.reportValidity()) return;
+          var data = { email: email, code: code, spots: spotsForm.elements.spots.value.trim() };
+          send(spotsForm, data, 'Sending…').then(function () { showJoined(code); }, function () {});
+        });
+
+        document.getElementById('spots-skip').addEventListener('click', function () {
+          showJoined(code);
+        });
+      })();
+    </script>
+
+    <!-- Cloudflare Web Analytics: counts visits, no cookies -->
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "28426744a4f84bf8960464baaa427e53"}'></script>
   </body>
 </html>

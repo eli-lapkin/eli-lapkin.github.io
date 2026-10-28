@@ -7,7 +7,8 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23e85d26'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-weight='800' font-size='20' fill='white'>N</text></svg>" />
     <!--
       GitHub Pages serves this page for any path that doesn't exist, so it doubles
-      as the landing page for tap links (/t/<tag code>) opened without the app.
+      as the landing page for tap links (/t?e=…&c=… from a secure tag, or /t/<code>)
+      opened without the app.
       With the app installed, iOS opens the app instead and this page never loads.
     -->
     <style>
@@ -91,7 +92,9 @@
   </head>
   <body>
     <script>
-      if (/^\/t\/[A-Za-z0-9_-]+\/?$/.test(location.pathname)) {
+      var params = new URLSearchParams(location.search);
+      var secureTap = /^\/t\/?$/.test(location.pathname) && params.has("e") && params.has("c");
+      if (secureTap || /^\/t\/[A-Za-z0-9_-]+\/?$/.test(location.pathname)) {
         document.body.classList.add("is-tap");
       }
     </script>
@@ -109,7 +112,7 @@
           One punch per visit, spendable at any Nibblr restaurant.
         </p>
         <!-- TODO: replace with the App Store link once the app is published -->
-        <a class="btn-primary" href="/#contact">Get the app</a>
+        <a class="btn-primary" href="/#waitlist">Get the app</a>
       </div>
 
       <div class="not-found">
@@ -119,5 +122,7 @@
         <a class="btn-primary" href="/">Go to Nibblr</a>
       </div>
     </main>
+    <!-- Cloudflare Web Analytics: counts visits, no cookies -->
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "28426744a4f84bf8960464baaa427e53"}'></script>
   </body>
 </html>
