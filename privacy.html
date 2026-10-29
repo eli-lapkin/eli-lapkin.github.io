@@ -4,63 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nibblr Privacy</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23e85d26'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-weight='800' font-size='20' fill='white'>N</text></svg>" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23b94c2d'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='22' fill='white'>N</text></svg>" />
+    <link rel="stylesheet" href="site.css" />
     <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-      :root {
-        --brand:    #e85d26;
-        --bg:       #faf9f7;
-        --text:     #1a1612;
-        --muted:    #6b6560;
-        --border:   #e6e3de;
-      }
-
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.6;
-      }
-
-      nav {
-        display: flex;
-        align-items: center;
-        padding: 0 2rem;
-        height: 60px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .nav-logo {
-        font-size: 1.35rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        color: var(--text);
-        text-decoration: none;
-      }
-
       main {
         max-width: 680px;
         margin: 0 auto;
-        padding: 3rem 1.25rem 4rem;
+        padding: 4rem 1.25rem 5rem;
       }
 
       h1 {
-        font-size: 2rem;
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        margin-bottom: 0.25rem;
+        font: 500 clamp(2.2rem, 6vw, 3rem)/1.05 var(--serif);
+        letter-spacing: -0.04em;
+        margin-bottom: 0.5rem;
       }
 
       .updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
 
-      h2 { font-size: 1.1rem; font-weight: 700; margin: 2rem 0 0.5rem; }
+      h2 { font: 700 1.2rem/1.3 var(--serif); margin: 2.25rem 0 0.5rem; }
 
-      p, li { color: var(--text); margin-bottom: 0.75rem; }
+      p, li { margin-bottom: 0.75rem; }
 
       ul { padding-left: 1.25rem; }
 
-      a { color: var(--brand); }
+      main a { color: var(--brand); }
     </style>
   </head>
   <body>

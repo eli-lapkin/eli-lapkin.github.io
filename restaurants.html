@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nibblr for Restaurants</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23e85d26'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-weight='800' font-size='20' fill='white'>N</text></svg>" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23b94c2d'/><text x='50%25' y='54%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='22' fill='white'>N</text></svg>" />
     <meta name="description" content="Nibblr is one punch card shared by the East Village's independent restaurants. We're choosing the first group of restaurants now." />
     <link rel="stylesheet" href="site.css" />
   </head>
-  <body>
+  <body class="restaurant-page">
 
     <!-- Nav -->
     <nav>
@@ -17,7 +17,7 @@
     </nav>
 
     <!-- Hero -->
-    <section class="page-hero">
+    <section class="page-hero restaurant-hero">
       <div class="hero-badge">For East Village restaurants</div>
       <h1>Turn the neighborhood into <span>your regulars</span></h1>
       <p>
@@ -34,22 +34,22 @@
       <h2 class="section-title">Built for busy counters</h2>
       <div class="perks">
         <div class="perk">
-          <div class="perk-icon">🎨</div>
+          <div class="perk-note">YOUR MENU</div>
           <h3>Your rewards, your menu</h3>
           <p>Choose what you offer at each punch level, like a free coffee, a side, or money off a meal. Every spot prices rewards in the same punches.</p>
         </div>
         <div class="perk">
-          <div class="perk-icon">🏷️</div>
+          <div class="perk-note">AT THE COUNTER</div>
           <h3>Nothing to install</h3>
           <p>A small tag at the register is all it takes. No new hardware, no POS integration, nothing for your staff to learn beyond "pay, then tap."</p>
         </div>
         <div class="perk">
-          <div class="perk-icon">📊</div>
+          <div class="perk-note">YOUR REGULARS</div>
           <h3>Know your regulars</h3>
           <p>See punches, redemptions, and the new diners who found you through other Nibblr spots.</p>
         </div>
         <div class="perk">
-          <div class="perk-icon">📣</div>
+          <div class="perk-note">THE NETWORK</div>
           <h3>Grow with the network</h3>
           <p>Diners collecting punches nearby discover you, and early partners help shape the network as it expands across the city.</p>
         </div>
@@ -62,17 +62,17 @@
       <h2 class="section-title">Three seconds per visit</h2>
       <div class="steps">
         <div class="step">
-          <div class="step-icon">💳</div>
+          <div class="step-number" aria-hidden="true">01</div>
           <h3>They pay as usual</h3>
           <p>Cash, card, anything. Nibblr doesn't touch your register or your payments.</p>
         </div>
         <div class="step">
-          <div class="step-icon">📲</div>
+          <div class="step-number" aria-hidden="true">02</div>
           <h3>They tap the tag</h3>
           <p>The diner taps their phone on the Nibblr tag by the register and gets a punch. Your staff doesn't do a thing.</p>
         </div>
         <div class="step">
-          <div class="step-icon">🎁</div>
+          <div class="step-number" aria-hidden="true">03</div>
           <h3>Rewards are just as quick</h3>
           <p>When a diner uses a reward, their phone tells your cashier exactly what to do, like "Take $4.00 off."</p>
         </div>
@@ -84,8 +84,10 @@
       <p class="section-label">Join the first group</p>
       <h2>Own a restaurant? Let's talk.</h2>
       <p>We're choosing the first group of East Village restaurants now. Tell us about your spot, or ask us anything.</p>
-      <a class="email-link" href="mailto:hello@joinnibblr.com?subject=Joining%20Nibblr">Send us a message</a>
-      <p class="email-address">or write to <a href="mailto:hello@joinnibblr.com">hello@joinnibblr.com</a></p>
+      <div class="contact-actions">
+        <a class="email-link" href="mailto:hello@joinnibblr.com?subject=Joining%20Nibblr">Send us a message</a>
+        <p class="email-address">or write to <a href="mailto:hello@joinnibblr.com">hello@joinnibblr.com</a></p>
+      </div>
     </section>
 
     <footer>
