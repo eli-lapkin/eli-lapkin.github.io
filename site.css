@@ -739,3 +739,31 @@ footer a { color: var(--muted); }
 
 /* Land "Talk to us" links below the sticky nav, not under it. */
 .contact { scroll-margin-top: 30px; }
+
+/* Form as a light card on the dark section, like the diners waitlist */
+.lead-form {
+  background: var(--bg);
+  border-radius: 5px;
+  padding: 1.35rem 1.4rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+.lead-form .field label { color: var(--text); }
+.lead-form .optional { color: var(--muted); }
+.lead-form .form-error { color: var(--brand-dk); }
+.lead-form .field input:focus { outline-color: var(--brand); }
+
+/* Wide screens: pitch on the left, form on the right, so it all fits in one view */
+@media (min-width: 900px) {
+  .contact {
+    display: grid;
+    grid-template-columns: minmax(0, 27rem) minmax(0, 420px);
+    column-gap: 4rem;
+    justify-content: center;
+    align-content: start;
+    text-align: left;
+  }
+  .contact > * { grid-column: 1; }
+  .contact > .section-label, .contact > h2, .contact > p, .contact > .pilot-terms { margin-left: 0; margin-right: 0; text-align: left; }
+  .contact > .pilot-terms { margin-top: 0.25rem; margin-bottom: 1.5rem; }
+  .contact > .lead-form, .contact > .lead-done { grid-column: 2; grid-row: 1 / span 6; align-self: center; margin: 0; width: 100%; }
+}
