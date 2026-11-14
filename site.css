@@ -720,3 +720,19 @@ footer a { color: var(--muted); }
 .lead-done { text-align: center; }
 .lead-done h3 { font: 500 1.4rem/1.2 var(--serif); }
 .lead-form ~ .email-address, .lead-done ~ .email-address { margin: 0 auto; }
+
+/* Pilot terms above the restaurant interest form */
+.pilot-terms {
+  list-style: none;
+  max-width: 30rem;
+  margin: 1.5rem auto 2rem;
+  padding: 0;
+  text-align: left;
+  color: #e9e1d6;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.pilot-terms li { position: relative; padding-left: 1.6rem; margin-bottom: 0.7rem; }
+.pilot-terms li::before { content: "✓"; position: absolute; left: 0; color: var(--brand-lt); font-weight: 700; }
+.pilot-terms strong { color: #fff; }
+.nowrap { white-space: nowrap; }
