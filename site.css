@@ -694,3 +694,29 @@ footer a { color: var(--muted); }
 }
 .restaurant-page .step:nth-child(2) .partner-step-art small { background: #f0e1c7; }
 .restaurant-page .step:nth-child(3) .partner-step-art small { background: #eed9cf; }
+
+
+/* ── Restaurant interest form (dark contact section) ─ */
+.lead-form, .lead-done {
+  max-width: 420px;
+  margin: 0 auto 1.5rem;
+  text-align: left;
+}
+.lead-form .field label { color: #e9e1d6; }
+.lead-form .optional { font-weight: 400; color: #b0a89e; }
+.lead-form .field input {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: #fffdf9;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.6rem 0.75rem;
+}
+.lead-form .field input:focus { outline: 2px solid var(--brand-lt); outline-offset: 1px; }
+.lead-form .btn-primary { width: 100%; margin-top: 0.3rem; }
+.lead-form .form-error { color: #f3c2b0; margin: 0.75rem 0 0; }
+.lead-done { text-align: center; }
+.lead-done h3 { font: 500 1.4rem/1.2 var(--serif); }
+.lead-form ~ .email-address, .lead-done ~ .email-address { margin: 0 auto; }

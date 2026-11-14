@@ -22,7 +22,7 @@
     <!-- Nav -->
     <nav>
       <a class="nav-logo" href="/">Nibblr</a>
-      <a class="nav-cta" href="mailto:hello@joinnibblr.com?subject=Joining%20Nibblr">Talk to us</a>
+      <a class="nav-cta" href="#contact">Talk to us</a>
     </nav>
 
     <!-- Hero -->
@@ -34,7 +34,7 @@
         Diners collect punches wherever they eat and spend them at any Nibblr
         restaurant, so the network sends them your way.
       </p>
-      <a class="btn-primary" href="mailto:hello@joinnibblr.com?subject=Joining%20Nibblr">Talk to us about the first group</a>
+      <a class="btn-primary" href="#contact">Talk to us about the first group</a>
     </section>
 
     <!-- Perks -->
@@ -78,7 +78,7 @@
         <div class="step">
           <div class="step-number" aria-hidden="true">02</div>
           <h3>They tap the tag</h3>
-          <p>The diner taps their phone on the Nibblr tag by the register and gets a punch. Your staff doesn't do a thing.</p>
+          <p>Your cashier holds out the Nibblr tag and the diner taps it with their phone, like stamping a paper card. That's a punch.</p>
         </div>
         <div class="step">
           <div class="step-number" aria-hidden="true">03</div>
@@ -88,15 +88,43 @@
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact: a short form so owners can ask for a call without email.
+         Posts to Formspark as JSON. The ref tag (e.g. ?ref=flyer from the
+         leave-behind QR code) records where the visitor came from. -->
     <section class="contact" id="contact">
       <p class="section-label">Join the first group</p>
       <h2>Own a restaurant? Let's talk.</h2>
-      <p>We're choosing the first group of East Village restaurants now. Tell us about your spot, or ask us anything.</p>
-      <div class="contact-actions">
-        <a class="email-link" href="mailto:hello@joinnibblr.com?subject=Joining%20Nibblr">Send us a message</a>
-        <p class="email-address">or write to <a href="mailto:hello@joinnibblr.com">hello@joinnibblr.com</a></p>
+      <p>We're choosing the first group of East Village restaurants now. Leave your details and we'll come by or call at a time that suits you.</p>
+
+      <form class="lead-form" id="lead-form" action="https://submit-form.com/tEAr5UWM4" method="POST">
+        <div class="field">
+          <label for="lead-name">Your name</label>
+          <input id="lead-name" name="name" type="text" autocomplete="name" maxlength="100" required />
+        </div>
+        <div class="field">
+          <label for="lead-restaurant">Restaurant</label>
+          <input id="lead-restaurant" name="restaurant" type="text" autocomplete="organization" maxlength="120" required />
+        </div>
+        <div class="field">
+          <label for="lead-contact">Phone or email</label>
+          <input id="lead-contact" name="contact" type="text" autocomplete="tel" maxlength="120" required />
+        </div>
+        <div class="field">
+          <label for="lead-time">Best time to reach you <span class="optional">(optional)</span></label>
+          <input id="lead-time" name="best_time" type="text" maxlength="120" placeholder="e.g. weekdays after 3" />
+        </div>
+        <!-- Spam honeypot: hidden from people, filled in by bots -->
+        <input type="checkbox" name="_honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+        <button class="btn-primary" type="submit">Ask for a call</button>
+        <p class="form-error" role="alert" hidden></p>
+      </form>
+
+      <div class="lead-done" id="lead-done" hidden>
+        <div class="check" aria-hidden="true">✓</div>
+        <h3>Thanks, we'll be in touch soon.</h3>
       </div>
+
+      <p class="email-address">Prefer email? Write to <a href="mailto:hello@joinnibblr.com?subject=Joining%20Nibblr">hello@joinnibblr.com</a></p>
     </section>
 
     <footer>
@@ -104,6 +132,49 @@
       · <a href="privacy.html">Privacy</a>
       · &copy; 2026 Nibblr
     </footer>
+
+    <script>
+      (function () {
+        var form = document.getElementById('lead-form');
+        var done = document.getElementById('lead-done');
+        var ref = (new URLSearchParams(location.search).get('ref') || '')
+          .toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 40);
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          if (!form.reportValidity()) return;
+          var button = form.querySelector('button[type=submit]');
+          var error = form.querySelector('.form-error');
+          var data = {
+            name: form.elements.name.value.trim(),
+            restaurant: form.elements.restaurant.value.trim(),
+            contact: form.elements.contact.value.trim(),
+            best_time: form.elements.best_time.value.trim(),
+            ref: ref
+          };
+          if (form.elements._honeypot.checked) data._honeypot = 'on';
+          button.disabled = true;
+          button.textContent = 'Sending…';
+          error.hidden = true;
+          fetch(form.action, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(data)
+          })
+            .then(function (response) {
+              if (!response.ok) throw new Error('HTTP ' + response.status);
+              form.hidden = true;
+              done.hidden = false;
+            })
+            .catch(function () {
+              error.textContent = "That didn't go through. Please try again, or email hello@joinnibblr.com.";
+              error.hidden = false;
+              button.disabled = false;
+              button.textContent = 'Ask for a call';
+            });
+        });
+      })();
+    </script>
 
     <!-- Cloudflare Web Analytics: counts visits, no cookies -->
     <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "28426744a4f84bf8960464baaa427e53"}'></script>
