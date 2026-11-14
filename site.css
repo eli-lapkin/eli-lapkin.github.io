@@ -736,3 +736,6 @@ footer a { color: var(--muted); }
 .pilot-terms li::before { content: "✓"; position: absolute; left: 0; color: var(--brand-lt); font-weight: 700; }
 .pilot-terms strong { color: #fff; }
 .nowrap { white-space: nowrap; }
+
+/* Land "Talk to us" links below the sticky nav, not under it. */
+.contact { scroll-margin-top: 30px; }
