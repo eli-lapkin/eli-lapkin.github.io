@@ -767,3 +767,8 @@ footer a { color: var(--muted); }
   .contact > .pilot-terms { margin-top: 0.25rem; margin-bottom: 1.5rem; }
   .contact > .lead-form, .contact > .lead-done { grid-column: 2; grid-row: 1 / span 6; align-self: center; margin: 0; width: 100%; }
 }
+
+/* Restaurants hero: keep the orange phrase on its own line on wider screens */
+@media (min-width: 700px) {
+  .restaurant-hero h1 span { display: block; }
+}
